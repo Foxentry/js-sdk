@@ -1,6 +1,6 @@
 {
   "name": "@foxentry/js-sdk",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "main": "dist/index.js",
   "module": "dist/index.m.js",
   "unpkg": "dist/index.umd.js",
@@ -20,6 +20,15 @@
     "sdk"
   ],
   "author": "Foxentry",
+  "homepage": "https://github.com/Foxentry/js-sdk#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Foxentry/js-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Foxentry/js-sdk/issues",
+    "email": "info@foxentry.cz"
+  },
   "license": "MIT",
   "description": "JS SDK for Foxentry.com",
   "devDependencies": {

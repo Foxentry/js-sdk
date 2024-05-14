@@ -1,6 +1,20 @@
 import Request from '../Request'
 import { Response } from '../Response';
 
+export enum Endpoint {
+    CompanyValidate = "company/validate",
+    CompanySearch = "company/search",
+    CompanyGet = "company/get",
+    LocationValidate = "location/validate",
+    LocationSearch = "location/search",
+    LocationGet = "location/get",
+    LocationLocalize = "location/localize",
+    NameValidate = "name/validate",
+    EmailValidate = "email/validate",
+    EmailSearch = "email/search",
+    PhoneValidate = "phone/validate"
+}
+
 /**
  * Base resource class for handling common resource functionality.
  */
@@ -76,13 +90,10 @@ export default abstract class BaseResource {
      * Sends a request to the specified endpoint with the given query parameters.
      *
      * @param {Record<string, any>} query - The query parameters to send with the request.
-     * @param {string} methodName - The name of the method to call on the endpoint.
+     * @param {string} endpoint - The endpoint to call e.g. "email/validate".
      * @return {Promise<Response>} A promise that resolves to the response from the request.
      */
-    protected async send(query: Record<string, any>, methodName: string): Promise<Response> {
-        const callerClass = this.constructor.name.toLowerCase();
-        const endpoint = `${callerClass}/${methodName}`;
-
+    protected async send(query: Record<string, any>, endpoint: Endpoint): Promise<Response> {
         this.request.setEndpoint(endpoint);
         this.request.setQuery(query);
         const r = await this.request.send()

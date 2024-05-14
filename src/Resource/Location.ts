@@ -1,4 +1,4 @@
-import BaseResource from './BaseResource';
+import BaseResource, {Endpoint} from './BaseResource';
 import { Response } from '../Response';
 
 /**
@@ -13,7 +13,7 @@ export default class Location extends BaseResource {
      * @returns A promise resolving to the response from the validation request
      */
     public validate(query: Record<string, any>): Promise<Response> {
-        return super.send(query, 'validate');
+        return super.send(query, Endpoint.LocationValidate);
     }
 
     /**
@@ -24,7 +24,7 @@ export default class Location extends BaseResource {
      * @returns A promise resolving to the response from the API
      */
     public search(query: Record<string, any>): Promise<Response> {
-        return super.send(query, 'search');
+        return super.send(query, Endpoint.LocationSearch);
     }
 
     /**
@@ -35,7 +35,7 @@ export default class Location extends BaseResource {
      * @returns A promise resolving to the response from the API
      */
     public get(query: Record<string, any>): Promise<Response> {
-        return super.send(query, 'get');
+        return super.send(query, Endpoint.LocationGet);
     }
 
     /**
@@ -46,6 +46,6 @@ export default class Location extends BaseResource {
      * @returns A promise resolving to the response from the API
      */
     public localize(query: Record<string, any>): Promise<Response> {
-        return super.send(query, 'localize');
+        return super.send(query, Endpoint.LocationLocalize);
     }
 }

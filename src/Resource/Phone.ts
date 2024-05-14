@@ -1,4 +1,4 @@
-import BaseResource from './BaseResource';
+import BaseResource, {Endpoint} from './BaseResource';
 import { Response } from '../Response';
 
 /**
@@ -13,6 +13,6 @@ export default class Phone extends BaseResource {
      * @returns The response from the validation request
      */
     public validate(query: Record<string, any>): Promise<Response> {
-        return super.send(query, 'validate');
+        return super.send(query, Endpoint.PhoneValidate);
     }
 }
