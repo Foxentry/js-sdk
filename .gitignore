@@ -1,0 +1,5 @@
+﻿dist
+node_modules
+test/config.ts
+.idea
+/examples
