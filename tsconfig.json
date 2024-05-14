@@ -1,18 +1,14 @@
 {
-  "include": [
-    "src",
-  ],
   "compilerOptions": {
-    "target": "ESNext",
-    "outDir": "dist",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    "module": "commonjs",
     "declaration": true,
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "strict": true,
-    "esModuleInterop": true
-  }
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": false,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
 }

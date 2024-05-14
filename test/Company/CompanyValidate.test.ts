@@ -1,5 +1,4 @@
-import { Response } from '../../src/Response';
-import ApiClient from '../../src/ApiClient';
+import { ApiClient, Response } from "../../src/index";
 
 /**
  * Tests for Company Validate API endpoint

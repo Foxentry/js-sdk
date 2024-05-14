@@ -25,9 +25,7 @@ To initiate the usage of the Foxentry API SDK, create an instance of the API cli
 
 ### Example of e-mail validation
 ```typescript
-// Import the ApiClient class, making it available for use in this script.
-import ApiClient from "../src/ApiClient";
-import { Response } from "../src/Response";
+import { ApiClient, Response } from "@foxentry/js-sdk";
 
 /*
 Create a new instance of the ApiClient class and provide your API key.
