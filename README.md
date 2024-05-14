@@ -16,7 +16,7 @@ To use the Foxentry API client, you need the following:
 To begin using the Foxentry API SDK, run the following command:
 
 ```bash
-npm install @foxentry/js-api-sdk
+npm install @foxentry/js-sdk
 ```
 
 ## Getting started
