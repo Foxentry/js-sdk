@@ -62,36 +62,40 @@ export default class ApiClient {
      * Sets the base URL for API requests.
      *
      * @param {string} url - The base URL to set.
-     * @return {void} 
+     * @return {ApiClient} 
      */
-    public setBaseURL(url: string): void {
+    public setBaseURL(url: string): ApiClient {
         this.request.setBaseURL(url);
+        return this;
     }
 
     /**
      * Set API key for authentication.
      * @param apiKey The API key to set
-     * @return {void} 
+     * @return {ApiClient} 
      */
-    public setAuth(apiKey: string): void {
+    public setAuth(apiKey: string): ApiClient {
         this.request.setAuth(apiKey);
+        return this;
     }
 
     /**
      * Set the API version for requests.
      * @param version The API version to set
-     * @return {void} 
+     * @return {ApiClient} 
      */
-    public setApiVersion(version: string): void {
+    public setApiVersion(version: string): ApiClient {
         this.request.setHeader("Api-Version", version);
+        return this;
     }
 
     /**
      * Include request details in API responses.
      * @param value Whether to include request details (default: true)
-     * @return {void} 
+     * @return {ApiClient} 
      */
-    public includeRequestDetails(value: boolean = true): void {
+    public includeRequestDetails(value: boolean = true): ApiClient {
         this.request.setHeader("Foxentry-Include-Request-Details", value);
+        return this;
     }
 }
