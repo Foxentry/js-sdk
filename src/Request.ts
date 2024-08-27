@@ -1,5 +1,6 @@
 import { ExceptionBuilder } from './Exception/ExceptionBuilder';
 import axios, { Axios, AxiosResponse } from "axios";
+import ipRegex from 'ip-regex';
 
 /**
  * Request class for handling API requests.
@@ -59,7 +60,7 @@ export default class Request {
     }
 
     public setClientIP(ip: string): void {
-        if (!ip.match(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/)) {
+        if (!ipRegex({exact: true, includeBoundaries: true}).test(ip)) {
             throw new Error("The specified IP address is not valid.");
         }
 
