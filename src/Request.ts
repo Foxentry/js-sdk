@@ -11,7 +11,7 @@ export default class Request {
         "Foxentry-Include-Request-Details": false,
         "Content-Type": "application/json",
         "Accept": "application/json",
-        "User-Agent": "sdk/javascript"
+        "User-Agent": "FoxentrySdk (JS/1.1.0; ApiReference/2.0)"
     };
     private body: object | null = null;
     private customId: string | null = null;
