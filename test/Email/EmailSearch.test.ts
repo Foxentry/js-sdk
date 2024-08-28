@@ -24,7 +24,7 @@ describe('Email Search', () => {
         };
 
         // Perform email search.
-        const response: Response = await api.email.setOptions(options).search(input);
+        const response: Response = await api.email().setOptions(options).search(input);
         const result = response.getResult();
 
         // Assertions.
@@ -50,7 +50,7 @@ describe('Email Search', () => {
         };
 
         // Perform email validation.
-        const response: Response = await api.email.setOptions(options).search(query);
+        const response: Response = await api.email().setOptions(options).search(query);
 
         // Assertions.
         expect(response).toBeInstanceOf(Response);

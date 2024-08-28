@@ -19,7 +19,7 @@ describe('Email Validate', () => {
         const emailToValidate = 'info@foxentry.com';
         const options = { validationType: 'extended' }; // Set validation type to extended
 
-        const response: Response = await api.email.setOptions(options).validate(emailToValidate);
+        const response: Response = await api.email().setOptions(options).validate(emailToValidate);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -36,7 +36,7 @@ describe('Email Validate', () => {
         const emailToValidate = 'invalidUser@foxentry.com';
         const options = { validationType: 'extended' }; // Set validation type to extended
 
-        const response: Response = await api.email.setOptions(options).validate(emailToValidate);
+        const response: Response = await api.email().setOptions(options).validate(emailToValidate);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -53,7 +53,7 @@ describe('Email Validate', () => {
         const emailToValidate = 'info@gmali.com';
         const options = { validationType: 'extended' }; // Set validation type to extended
 
-        const response: Response = await api.email.setOptions(options).validate(emailToValidate);
+        const response: Response = await api.email().setOptions(options).validate(emailToValidate);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -70,7 +70,7 @@ describe('Email Validate', () => {
         const emailToValidate = 'info@foxentry,com'; // Comma instead of dot
         const options = { validationType: 'extended' }; // Set validation type to extended
 
-        const response: Response = await api.email.setOptions(options).validate(emailToValidate);
+        const response: Response = await api.email().setOptions(options).validate(emailToValidate);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -87,7 +87,7 @@ describe('Email Validate', () => {
         const emailToValidate = 'infogmail.com'; // Missing "@" symbol
         const options = { validationType: 'extended' }; // Set validation type to extended
 
-        const response: Response = await api.email.setOptions(options).validate(emailToValidate);
+        const response: Response = await api.email().setOptions(options).validate(emailToValidate);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -104,7 +104,7 @@ describe('Email Validate', () => {
         const emailToValidate = 'rasini3451@naymedia.com';
         const options = { acceptDisposableEmails: false }; // Disposable emails not accepted
 
-        const response: Response = await api.email.setOptions(options).validate(emailToValidate);
+        const response: Response = await api.email().setOptions(options).validate(emailToValidate);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -122,7 +122,7 @@ describe('Email Validate', () => {
         const emailToValidate = 'info@gmail.com';
         const options = { acceptFreemails: false }; // Freemails not accepted
 
-        const response: Response = await api.email.setOptions(options).validate(emailToValidate);
+        const response: Response = await api.email().setOptions(options).validate(emailToValidate);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -140,7 +140,7 @@ describe('Email Validate', () => {
         const customRequestId = 'orderEmailValidation'; // Set custom request ID
         const emailToValidate = 'info@foxentry.com';
 
-        const response: Response = await api.email.setCustomId(customRequestId).validate(emailToValidate);
+        const response: Response = await api.email().setCustomId(customRequestId).validate(emailToValidate);
         const request = response.getRequest();
 
         expect(response).toBeInstanceOf(Response);
@@ -154,7 +154,7 @@ describe('Email Validate', () => {
     test('email with client information', async () => {
         const emailToValidate = 'info@foxentry.com';
 
-        const response: Response = await api.email
+        const response: Response = await api.email()
             .setClientCountry('CZ')
             .setClientIP('127.0.0.1')
             .setClientLocation(50.073658, 14.418540)
@@ -174,7 +174,7 @@ describe('Email Validate', () => {
         const query = { email: 'info@foxentry.com' }; // Set query as input
         const options = { validationType: 'extended' }; // Set validation type to extended
 
-        const response: Response = await api.email.setOptions(options).validate(query);
+        const response: Response = await api.email().setOptions(options).validate(query);
 
         expect(response).toBeInstanceOf(Response);
         expect(response.getStatus()).toBe(200);
@@ -187,7 +187,7 @@ describe('Email Validate', () => {
         const emailToValidate = 'info@foxentry.com';
         const options = { validationType: 'extended' };// Set validation type to extended
 
-        const response: Response = await api.email.setOptions(options).validate(emailToValidate)
+        const response: Response = await api.email().setOptions(options).validate(emailToValidate)
 
         expect(response).toBeInstanceOf(Response);
         expect(response.getStatus()).toBe(200);
@@ -198,5 +198,18 @@ describe('Email Validate', () => {
         expect(response.getDailyCreditsLeft()).toBeDefined();
         expect(response.getDailyCreditsLimit()).toBeDefined();
         expect(response.getApiVersion()).toBeDefined();
+    });
+
+    test("settings should not persist between calls", async () => {
+        const response: Response = await api.email()
+          .includeRequestDetails(true)
+          .validate('info@foxentry.com');
+        const result = response.getRequest();
+        expect(result.query).not.toBeUndefined();
+
+        const secondResponse: Response = await api.email()
+          .validate('info@foxentry.com');
+        const secondResult = secondResponse.getRequest();
+        expect(secondResult.query).toBeUndefined();
     });
 });

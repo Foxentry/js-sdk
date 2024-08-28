@@ -13,7 +13,7 @@ export default class Location extends BaseResource {
      * @returns A promise resolving to the response from the validation request
      */
     public validate(query: Record<string, any>): Promise<Response> {
-        return super.send(query, Endpoint.LocationValidate);
+        return super.send(Endpoint.LocationValidate, query);
     }
 
     /**
@@ -24,7 +24,7 @@ export default class Location extends BaseResource {
      * @returns A promise resolving to the response from the API
      */
     public search(query: Record<string, any>): Promise<Response> {
-        return super.send(query, Endpoint.LocationSearch);
+        return super.send(Endpoint.LocationSearch, query);
     }
 
     /**
@@ -35,7 +35,7 @@ export default class Location extends BaseResource {
      * @returns A promise resolving to the response from the API
      */
     public get(query: Record<string, any>): Promise<Response> {
-        return super.send(query, Endpoint.LocationGet);
+        return super.send(Endpoint.LocationGet, query);
     }
 
     /**
@@ -46,6 +46,6 @@ export default class Location extends BaseResource {
      * @returns A promise resolving to the response from the API
      */
     public localize(query: Record<string, any>): Promise<Response> {
-        return super.send(query, Endpoint.LocationLocalize);
+        return super.send(Endpoint.LocationLocalize, query);
     }
 }

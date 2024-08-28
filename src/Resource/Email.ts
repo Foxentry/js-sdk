@@ -14,7 +14,7 @@ export default class Email extends BaseResource {
      */
     public validate(query: string | Record<string, any>): Promise<Response> {
         const emailQuery = typeof query === 'string' ? { email: query } : query;
-        return super.send(emailQuery, Endpoint.EmailValidate);
+        return super.send(Endpoint.EmailValidate, emailQuery);
     }
 
 
@@ -26,6 +26,6 @@ export default class Email extends BaseResource {
      */
     public search(query: string | Record<string, any>): Promise<Response> {
         const searchQuery = typeof query === 'string' ? { value: query } : query;
-        return super.send(searchQuery, Endpoint.EmailSearch);
+        return super.send(Endpoint.EmailSearch, searchQuery);
     }
 }

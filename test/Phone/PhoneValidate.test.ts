@@ -20,7 +20,7 @@ describe('Phone Validate', () => {
             validationType: "extended"
         };
 
-        const response: Response = await api.phone.setOptions(options).validate(query);
+        const response: Response = await api.phone().setOptions(options).validate(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -39,7 +39,7 @@ describe('Phone Validate', () => {
             validationType: "extended"
         };
 
-        const response: Response = await api.phone.setOptions(options).validate(query);
+        const response: Response = await api.phone().setOptions(options).validate(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -59,7 +59,7 @@ describe('Phone Validate', () => {
             validationType: "extended"
         };
 
-        const response: Response = await api.phone.setOptions(options).validate(query);
+        const response: Response = await api.phone().setOptions(options).validate(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -79,7 +79,7 @@ describe('Phone Validate', () => {
             validationType: "extended"
         };
 
-        const response: Response = await api.phone.setOptions(options).validate(query);
+        const response: Response = await api.phone().setOptions(options).validate(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -96,7 +96,7 @@ describe('Phone Validate', () => {
             numberWithPrefix: "+420607123456"
         };
 
-        const response: Response = await api.phone
+        const response: Response = await api.phone()
             .setCustomId(customRequestId)
             .validate(query);
 
@@ -112,7 +112,7 @@ describe('Phone Validate', () => {
             numberWithPrefix: "+420607123456"
         };
 
-        const response: Response = await api.phone
+        const response: Response = await api.phone()
             .setClientCountry("CZ")
             .setClientIP("127.0.0.1")
             .setClientLocation(50.073658, 14.418540)
@@ -123,5 +123,22 @@ describe('Phone Validate', () => {
         expect(response).toBeInstanceOf(Response);
         expect(response.getStatus()).toBe(200);
         expect(result.isValid).toBe(true);
+    });
+
+    test("settings should not persist between calls", async () => {
+        const query = {
+            numberWithPrefix: "+420607123456"
+        };
+
+        const response: Response = await api.phone()
+          .includeRequestDetails(true)
+          .validate(query);
+        const result = response.getRequest();
+        expect(result.query).not.toBeUndefined();
+
+        const secondResponse: Response = await api.phone()
+          .validate(query);
+        const secondResult = secondResponse.getRequest();
+        expect(secondResult.query).toBeUndefined();
     });
 });

@@ -31,6 +31,16 @@ export default abstract class BaseResource {
     }
 
     /**
+     * Include request details in API responses.
+     * @param value Whether to include request details (default: true)
+     * @return {ApiClient}
+     */
+    public includeRequestDetails(value: boolean = true): this {
+        this.request.setHeader("Foxentry-Include-Request-Details", value);
+        return this;
+    }
+
+    /**
      * Sets a custom ID for the resource.
      *
      * @param {string} id - The custom ID to set.
@@ -89,11 +99,11 @@ export default abstract class BaseResource {
     /**
      * Sends a request to the specified endpoint with the given query parameters.
      *
-     * @param {Record<string, any>} query - The query parameters to send with the request.
      * @param {string} endpoint - The endpoint to call e.g. "email/validate".
+     * @param {Record<string, any>} query - The query parameters to send with the request.
      * @return {Promise<Response>} A promise that resolves to the response from the request.
      */
-    protected async send(query: Record<string, any>, endpoint: Endpoint): Promise<Response> {
+    protected async send(endpoint: Endpoint, query: Record<string, any>): Promise<Response> {
         this.request.setEndpoint(endpoint);
         this.request.setQuery(query);
         const r = await this.request.send()

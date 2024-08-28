@@ -21,7 +21,7 @@ describe('Location Search', () => {
             resultsLimit: 10
         };
 
-        const response: Response = await api.location.setOptions(options).search(query);
+        const response: Response = await api.location().setOptions(options).search(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -41,7 +41,7 @@ describe('Location Search', () => {
             resultsLimit: 10
         };
 
-        const response: Response = await api.location.setOptions(options).search(query);
+        const response: Response = await api.location().setOptions(options).search(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -61,7 +61,7 @@ describe('Location Search', () => {
             resultsLimit: 10
         };
 
-        const response: Response = await api.location.setOptions(options).search(query);
+        const response: Response = await api.location().setOptions(options).search(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -81,7 +81,7 @@ describe('Location Search', () => {
             resultsLimit: 10
         };
 
-        const response: Response = await api.location.setOptions(options).search(query);
+        const response: Response = await api.location().setOptions(options).search(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -101,7 +101,7 @@ describe('Location Search', () => {
             resultsLimit: 10
         };
 
-        const response: Response = await api.location.setOptions(options).search(query);
+        const response: Response = await api.location().setOptions(options).search(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -123,7 +123,7 @@ describe('Location Search', () => {
             resultsLimit: 10
         };
 
-        const response: Response = await api.location
+        const response: Response = await api.location()
             .setCustomId(customRequestId)
             .setOptions(options)
             .search(query);
@@ -147,7 +147,7 @@ describe('Location Search', () => {
             resultsLimit: 10
         };
 
-        const response: Response = await api.location
+        const response: Response = await api.location()
             .setOptions(options)
             .setClientCountry("CZ")
             .setClientIP("127.0.0.1")

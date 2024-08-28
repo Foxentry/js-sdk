@@ -21,7 +21,7 @@ describe('Company Search', () => {
             resultsLimit: 10
         };
 
-        const response: Response = await api.company.setOptions(options).search(query);
+        const response: Response = await api.company().setOptions(options).search(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -41,7 +41,7 @@ describe('Company Search', () => {
             resultsLimit: 10
         };
 
-        const response: Response = await api.company.setOptions(options).search(query);
+        const response: Response = await api.company().setOptions(options).search(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -61,7 +61,7 @@ describe('Company Search', () => {
             resultsLimit: 10
         };
 
-        const response: Response = await api.company.setOptions(options).search(query);
+        const response: Response = await api.company().setOptions(options).search(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -81,7 +81,7 @@ describe('Company Search', () => {
             resultsLimit: 10
         };
 
-        const response: Response = await api.company.setOptions(options).search(query);
+        const response: Response = await api.company().setOptions(options).search(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -103,7 +103,7 @@ describe('Company Search', () => {
             resultsLimit: 10
         };
 
-        const response: Response = await api.company
+        const response: Response = await api.company()
             .setCustomId(customRequestId)
             .setOptions(options)
             .search(query);
@@ -127,7 +127,7 @@ describe('Company Search', () => {
             resultsLimit: 10
         };
 
-        const response: Response = await api.company
+        const response: Response = await api.company()
             .setOptions(options)
             .setClientCountry('CZ')
             .setClientIP('127.0.0.1')

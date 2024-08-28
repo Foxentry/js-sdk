@@ -22,7 +22,7 @@ describe('Location Get', () => {
             dataScope: 'full'
         };
 
-        const response: Response = await api.location.setOptions(options).get(query);
+        const response: Response = await api.location().setOptions(options).get(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -41,7 +41,7 @@ describe('Location Get', () => {
             dataScope: 'full'
         };
 
-        const response: Response = await api.location.setOptions(options).get(query);
+        const response: Response = await api.location().setOptions(options).get(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -62,7 +62,7 @@ describe('Location Get', () => {
             dataScope: 'full'
         };
 
-        const response: Response = await api.location
+        const response: Response = await api.location()
             .setCustomId(customRequestId)
             .setOptions(options)
             .get(query);
@@ -85,7 +85,7 @@ describe('Location Get', () => {
             dataScope: 'full'
         };
 
-        const response: Response = await api.location
+        const response: Response = await api.location()
             .setOptions(options)
             .setClientCountry('CZ')
             .setClientIP('127.0.0.1')
@@ -97,5 +97,30 @@ describe('Location Get', () => {
         expect(response).toBeInstanceOf(Response);
         expect(response.getStatus()).toBe(200);
         expect(result[0].data).toBeTruthy();
+    });
+
+    test("settings should not persist between calls", async () => {
+        const query = {
+            country: 'CZ',
+            id: '22349995'
+        };
+
+        const options = {
+            idType: 'external',
+            dataScope: 'basic'
+        };
+
+        const response: Response = await api.location()
+          .includeRequestDetails(true)
+          .setOptions(options)
+          .get(query);
+        const result = response.getRequest();
+        expect(result.query).not.toBeUndefined();
+
+        const secondResponse: Response = await api.location()
+          .setOptions(options)
+          .get(query);
+        const secondResult = secondResponse.getRequest();
+        expect(secondResult.query).toBeUndefined();
     });
 });

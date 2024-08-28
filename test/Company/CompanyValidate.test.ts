@@ -21,7 +21,7 @@ describe('Company Validate', () => {
             dataScope: 'basic'
         };
 
-        const response: Response = await api.company.setOptions(options).validate(query);
+        const response: Response = await api.company().setOptions(options).validate(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -41,7 +41,7 @@ describe('Company Validate', () => {
             dataScope: 'basic'
         };
 
-        const response: Response = await api.company.setOptions(options).validate(query);
+        const response: Response = await api.company().setOptions(options).validate(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -61,7 +61,7 @@ describe('Company Validate', () => {
             dataScope: 'basic'
         };
 
-        const response: Response = await api.company.setOptions(options).validate(query);
+        const response: Response = await api.company().setOptions(options).validate(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -80,7 +80,7 @@ describe('Company Validate', () => {
             dataScope: 'basic'
         };
 
-        const response: Response = await api.company.setOptions(options).validate(query);
+        const response: Response = await api.company().setOptions(options).validate(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -102,7 +102,7 @@ describe('Company Validate', () => {
             dataScope: 'basic'
         };
 
-        const response: Response = await api.company
+        const response: Response = await api.company()
             .setCustomId(customRequestId)
             .setOptions(options)
             .validate(query);
@@ -124,7 +124,7 @@ describe('Company Validate', () => {
             dataScope: 'basic'
         };
 
-        const response: Response = await api.company
+        const response: Response = await api.company()
             .setOptions(options)
             .setClientCountry('CZ')
             .setClientIP('127.0.0.1')

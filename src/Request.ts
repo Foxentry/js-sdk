@@ -1,5 +1,6 @@
-import { ExceptionBuilder } from './Exception/ExceptionBuilder';
-import axios, { Axios, AxiosResponse } from "axios";
+import { ExceptionBuilder } from './Exception/ExceptionBuilder'
+import axios, { Axios, AxiosResponse } from 'axios'
+import * as ipaddr from 'ipaddr.js';
 
 /**
  * Request class for handling API requests.
@@ -11,7 +12,7 @@ export default class Request {
         "Foxentry-Include-Request-Details": false,
         "Content-Type": "application/json",
         "Accept": "application/json",
-        "User-Agent": "sdk/javascript"
+        "User-Agent": "FoxentrySdk (JS/1.1.0; ApiReference/2.0)"
     };
     private body: object | null = null;
     private customId: string | null = null;
@@ -22,7 +23,13 @@ export default class Request {
     private apiKey: string = "";
     private client: Record<string, any> | null = null;
 
-    constructor() {
+    constructor(apiVersion: string, apiKey?: string|null) {
+        this.setHeader("Api-Version", apiVersion);
+
+        if (apiKey){
+            this.setAuth(apiKey);
+        }
+
         this.httpClient = axios.create({
             baseURL: this.baseUri
         });
@@ -49,17 +56,12 @@ export default class Request {
         this.options = options;
     }
 
-    public setBaseURL(url: string): void {
-        this.baseUri = url;
-        this.httpClient.defaults.baseURL = this.baseUri;
-    }
-
     public setEndpoint(endpoint: string): void {
         this.endpoint = endpoint;
     }
 
     public setClientIP(ip: string): void {
-        if (!ip.match(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/)) {
+        if (!ipaddr.isValid(ip)) {
             throw new Error("The specified IP address is not valid.");
         }
 
@@ -86,14 +88,12 @@ export default class Request {
             this.buildBody();
             this.validate();
 
-            const response = await this.httpClient.request({
+            return await this.httpClient.request({
                 method: this.method,
                 url: this.endpoint,
                 headers: this.headers,
                 data: JSON.stringify(this.body)
-            })
-
-            return response;
+            });
         } catch (error: any) {
             if (error?.isAxiosError)
                 throw ExceptionBuilder.fromRequestException(error);
