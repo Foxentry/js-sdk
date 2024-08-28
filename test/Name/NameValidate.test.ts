@@ -20,7 +20,7 @@ describe('Name Validate', () => {
             dataScope: "basic"
         };
 
-        const response: Response = await api.name.setOptions(options).validate(query);
+        const response: Response = await api.name().setOptions(options).validate(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -40,7 +40,7 @@ describe('Name Validate', () => {
             validationDepth: "strict"
         };
 
-        const response: Response = await api.name.setOptions(options).validate(query);
+        const response: Response = await api.name().setOptions(options).validate(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -60,7 +60,7 @@ describe('Name Validate', () => {
             validationDepth: "strict"
         };
 
-        const response: Response = await api.name.setOptions(options).validate(query);
+        const response: Response = await api.name().setOptions(options).validate(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -79,7 +79,7 @@ describe('Name Validate', () => {
             dataScope: "full"
         };
 
-        const response: Response = await api.name.setOptions(options).validate(query);
+        const response: Response = await api.name().setOptions(options).validate(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -96,7 +96,7 @@ describe('Name Validate', () => {
             name: "Pavel"
         };
 
-        const response: Response = await api.name
+        const response: Response = await api.name()
             .setCustomId(customRequestId)
             .validate(query);
 
@@ -116,7 +116,7 @@ describe('Name Validate', () => {
             dataScope: "basic"
         };
 
-        const response: Response = await api.name
+        const response: Response = await api.name()
             .setOptions(options)
             .setClientCountry("CZ")
             .setClientIP("127.0.0.1")

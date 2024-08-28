@@ -22,7 +22,7 @@ describe('Location Get', () => {
             dataScope: 'full'
         };
 
-        const response: Response = await api.location.setOptions(options).get(query);
+        const response: Response = await api.location().setOptions(options).get(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -41,7 +41,7 @@ describe('Location Get', () => {
             dataScope: 'full'
         };
 
-        const response: Response = await api.location.setOptions(options).get(query);
+        const response: Response = await api.location().setOptions(options).get(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -62,7 +62,7 @@ describe('Location Get', () => {
             dataScope: 'full'
         };
 
-        const response: Response = await api.location
+        const response: Response = await api.location()
             .setCustomId(customRequestId)
             .setOptions(options)
             .get(query);
@@ -85,7 +85,7 @@ describe('Location Get', () => {
             dataScope: 'full'
         };
 
-        const response: Response = await api.location
+        const response: Response = await api.location()
             .setOptions(options)
             .setClientCountry('CZ')
             .setClientIP('127.0.0.1')

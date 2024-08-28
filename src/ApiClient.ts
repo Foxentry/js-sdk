@@ -11,91 +11,80 @@ import Phone from './Resource/Phone';
  */
 export default class ApiClient {
     /**
-     * Email resource.
+     * Api key
      */
-    public email: Email;
+    private apiKey: string | null = null;
 
     /**
-     * Location resource.
+     * Api version
      */
-    public location: Location;
-
-    /**
-     * Company resource.
-     */
-    public company: Company;
-
-    /**
-     * Name resource.
-     */
-    public name: Name;
-
-    /**
-     * Phone resource.
-     */
-    public phone: Phone;
-
-    /**
-     * Request object for making API requests.
-     */
-    private request: Request;
+    private apiVersion: string = '2.0';
 
     /**
      * ApiClient constructor.
      * @param apiKey The API key for authentication
      */
     constructor(apiKey: string | null = null) {
-        this.request = new Request();
-
-        if (apiKey) {
-            this.request.setAuth(apiKey);
-        }
-
-        this.company = new Company(this.request);
-        this.email = new Email(this.request);
-        this.location = new Location(this.request);
-        this.name = new Name(this.request);
-        this.phone = new Phone(this.request);
+        this.apiKey = apiKey;
     }
 
     /**
-     * Sets the base URL for API requests.
-     *
-     * @param {string} url - The base URL to set.
-     * @return {ApiClient} 
+     * Email resource.
      */
-    public setBaseURL(url: string): ApiClient {
-        this.request.setBaseURL(url);
-        return this;
+    public email(): Email {
+        const request = new Request(this.apiVersion, this.apiKey);
+        return new Email(request);
+    }
+
+    /**
+     * Location resource.
+     */
+    public location(): Location {
+        const request = new Request(this.apiVersion, this.apiKey);
+        return new Location(request);
+    }
+
+    /**
+     * Company resource.
+     */
+    public company(): Company {
+        const request = new Request(this.apiVersion, this.apiKey);
+        return new Company(request);
+    }
+
+    /**
+     * Name resource.
+     */
+    public name(): Name {
+        const request = new Request(this.apiVersion, this.apiKey);
+        return new Name(request);
+    }
+
+    /**
+     * Phone resource.
+     */
+    public phone(): Phone {
+        const request = new Request(this.apiVersion, this.apiKey);
+        return new Phone(request);
     }
 
     /**
      * Set API key for authentication.
      * @param apiKey The API key to set
-     * @return {ApiClient} 
+     * @return {ApiClient}
      */
     public setAuth(apiKey: string): ApiClient {
-        this.request.setAuth(apiKey);
+        this.apiKey = apiKey;
         return this;
     }
 
     /**
      * Set the API version for requests.
      * @param version The API version to set
-     * @return {ApiClient} 
+     * @return {ApiClient}
      */
     public setApiVersion(version: string): ApiClient {
-        this.request.setHeader("Api-Version", version);
-        return this;
-    }
-
-    /**
-     * Include request details in API responses.
-     * @param value Whether to include request details (default: true)
-     * @return {ApiClient} 
-     */
-    public includeRequestDetails(value: boolean = true): ApiClient {
-        this.request.setHeader("Foxentry-Include-Request-Details", value);
+        this.apiVersion = version;
         return this;
     }
 }

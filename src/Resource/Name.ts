@@ -13,6 +13,6 @@ export default class Name extends BaseResource {
      * @returns The response from the validation request
      */
     public validate(query: Record<string, any>): Promise<Response> {
-        return super.send(query, Endpoint.NameValidate);
+        return super.send(Endpoint.NameValidate, query);
     }
 }

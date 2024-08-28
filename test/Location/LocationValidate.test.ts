@@ -24,7 +24,7 @@ describe('Location Validate', () => {
             zipFormat: true
         };
 
-        const response: Response = await api.location.setOptions(options).validate(query);
+        const response: Response = await api.location().setOptions(options).validate(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -47,7 +47,7 @@ describe('Location Validate', () => {
             zipFormat: true
         };
 
-        const response: Response = await api.location.setOptions(options).validate(query);
+        const response: Response = await api.location().setOptions(options).validate(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -70,7 +70,7 @@ describe('Location Validate', () => {
             zipFormat: true
         };
 
-        const response: Response = await api.location.setOptions(options).validate(query);
+        const response: Response = await api.location().setOptions(options).validate(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -93,7 +93,7 @@ describe('Location Validate', () => {
             zipFormat: true
         };
 
-        const response: Response = await api.location.setOptions(options).validate(query);
+        const response: Response = await api.location().setOptions(options).validate(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -118,7 +118,7 @@ describe('Location Validate', () => {
             zipFormat: true
         };
 
-        const response: Response = await api.location
+        const response: Response = await api.location()
             .setCustomId(customRequestId)
             .setOptions(options)
             .validate(query);
@@ -143,7 +143,7 @@ describe('Location Validate', () => {
             zipFormat: true
         };
 
-        const response: Response = await api.location
+        const response: Response = await api.location()
             .setOptions(options)
             .setClientCountry("CZ")
             .setClientIP("127.0.0.1")

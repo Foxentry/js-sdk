@@ -1,6 +1,6 @@
-import { ExceptionBuilder } from './Exception/ExceptionBuilder';
-import axios, { Axios, AxiosResponse } from "axios";
-import ipRegex from 'ip-regex';
+import { ExceptionBuilder } from './Exception/ExceptionBuilder'
+import axios, { Axios, AxiosResponse } from 'axios'
+import ipRegex from 'ip-regex'
 
 /**
  * Request class for handling API requests.
@@ -23,7 +23,13 @@ export default class Request {
     private apiKey: string = "";
     private client: Record<string, any> | null = null;
 
-    constructor() {
+    constructor(apiVersion: string, apiKey?: string|null) {
+        this.setHeader("Api-Version", apiVersion);
+
+        if (apiKey){
+            this.setAuth(apiKey);
+        }
+
         this.httpClient = axios.create({
             baseURL: this.baseUri
         });
@@ -48,11 +54,6 @@ export default class Request {
 
     public setOptions(options: Record<string, any>): void {
         this.options = options;
-    }
-
-    public setBaseURL(url: string): void {
-        this.baseUri = url;
-        this.httpClient.defaults.baseURL = this.baseUri;
     }
 
     public setEndpoint(endpoint: string): void {
@@ -87,14 +88,12 @@ export default class Request {
             this.buildBody();
             this.validate();
 
-            const response = await this.httpClient.request({
+            return await this.httpClient.request({
                 method: this.method,
                 url: this.endpoint,
                 headers: this.headers,
                 data: JSON.stringify(this.body)
-            })
-
-            return response;
+            });
         } catch (error: any) {
             if (error?.isAxiosError)
                 throw ExceptionBuilder.fromRequestException(error);

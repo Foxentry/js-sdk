@@ -21,7 +21,7 @@ describe('Company Get', () => {
             dataScope: 'basic'
         };
 
-        const response: Response = await api.company.setOptions(options).get(query);
+        const response: Response = await api.company().setOptions(options).get(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -39,7 +39,7 @@ describe('Company Get', () => {
             dataScope: 'extended'
         };
 
-        const response: Response = await api.company.setOptions(options).get(query);
+        const response: Response = await api.company().setOptions(options).get(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -57,7 +57,7 @@ describe('Company Get', () => {
             dataScope: 'full'
         };
 
-        const response: Response = await api.company.setOptions(options).get(query);
+        const response: Response = await api.company().setOptions(options).get(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -76,7 +76,7 @@ describe('Company Get', () => {
             dataScope: 'basic'
         };
 
-        const response: Response = await api.company
+        const response: Response = await api.company()
             .setCustomId(customRequestId)
             .setOptions(options)
             .get(query);
@@ -98,7 +98,7 @@ describe('Company Get', () => {
             dataScope: 'basic'
         };
 
-        const response: Response = await api.company
+        const response: Response = await api.company()
             .setOptions(options)
             .setClientCountry('CZ')
             .setClientIP('127.0.0.1')

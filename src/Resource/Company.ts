@@ -13,7 +13,7 @@ export default class Company extends BaseResource {
      * @returns A promise resolving to the response from the validation request
      */
     public validate(query: Record<string, any>): Promise<Response> {
-        return super.send(query, Endpoint.CompanyValidate);
+        return super.send(Endpoint.CompanyValidate, query);
     }
 
     /**
@@ -24,7 +24,7 @@ export default class Company extends BaseResource {
      * @returns A promise resolving to the response from the API
      */
     public search(query: Record<string, any>): Promise<Response> {
-        return super.send(query, Endpoint.CompanySearch);
+        return super.send(Endpoint.CompanySearch, query);
     }
 
     /**
@@ -35,6 +35,6 @@ export default class Company extends BaseResource {
      * @returns A promise resolving to the response from the API
      */
     public get(query: Record<string, any>): Promise<Response> {
-        return super.send(query, Endpoint.CompanyGet);
+        return super.send(Endpoint.CompanyGet, query);
     }
 }

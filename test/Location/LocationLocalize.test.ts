@@ -23,7 +23,7 @@ describe('Location Localize', () => {
             acceptNearest: false
         };
 
-        const response: Response = await api.location.setOptions(options).localize(query);
+        const response: Response = await api.location().setOptions(options).localize(query);
         const result = response.getResult();
 
         expect(response).toBeInstanceOf(Response);
@@ -47,7 +47,7 @@ describe('Location Localize', () => {
             acceptNearest: false
         };
 
-        const response: Response = await api.location
+        const response: Response = await api.location()
             .setCustomId(customRequestId)
             .setOptions(options)
             .localize(query);
@@ -73,7 +73,7 @@ describe('Location Localize', () => {
             acceptNearest: false
         };
 
-        const response: Response = await api.location
+        const response: Response = await api.location()
             .setOptions(options)
             .setClientCountry("CZ")
             .setClientIP("127.0.0.1")
