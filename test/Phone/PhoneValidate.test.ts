@@ -124,4 +124,21 @@ describe('Phone Validate', () => {
         expect(response.getStatus()).toBe(200);
         expect(result.isValid).toBe(true);
     });
+
+    test("settings should not persist between calls", async () => {
+        const query = {
+            numberWithPrefix: "+420607123456"
+        };
+
+        const response: Response = await api.phone()
+          .includeRequestDetails(true)
+          .validate(query);
+        const result = response.getRequest();
+        expect(result.query).not.toBeUndefined();
+
+        const secondResponse: Response = await api.phone()
+          .validate(query);
+        const secondResult = secondResponse.getRequest();
+        expect(secondResult.query).toBeUndefined();
+    });
 });

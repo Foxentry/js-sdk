@@ -111,4 +111,28 @@ describe('Company Get', () => {
         expect(response.getStatus()).toBe(200);
         expect(result[0]?.data).toBeTruthy();
     });
+
+    test("settings should not persist between calls", async () => {
+        const query = {
+            country: 'CZ',
+            registrationNumber: '04997476'
+        };
+
+        const options = {
+            dataScope: 'basic'
+        };
+
+        const response: Response = await api.company()
+          .setOptions(options)
+          .includeRequestDetails(true)
+          .get(query);
+        const result = response.getRequest();
+        expect(result.query).not.toBeUndefined();
+
+        const secondResponse: Response = await api.company()
+          .setOptions(options)
+          .get(query);
+        const secondResult = secondResponse.getRequest();
+        expect(secondResult.query).toBeUndefined();
+    });
 });

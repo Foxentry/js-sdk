@@ -199,4 +199,17 @@ describe('Email Validate', () => {
         expect(response.getDailyCreditsLimit()).toBeDefined();
         expect(response.getApiVersion()).toBeDefined();
     });
+
+    test("settings should not persist between calls", async () => {
+        const response: Response = await api.email()
+          .includeRequestDetails(true)
+          .validate('info@foxentry.com');
+        const result = response.getRequest();
+        expect(result.query).not.toBeUndefined();
+
+        const secondResponse: Response = await api.email()
+          .validate('info@foxentry.com');
+        const secondResult = secondResponse.getRequest();
+        expect(secondResult.query).toBeUndefined();
+    });
 });

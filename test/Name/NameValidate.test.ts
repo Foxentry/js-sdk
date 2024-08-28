@@ -129,4 +129,21 @@ describe('Name Validate', () => {
         expect(response.getStatus()).toBe(200);
         expect(result.isValid).toBe(true);
     });
+
+    test("settings should not persist between calls", async () => {
+        const query = {
+            name: "Pavel"
+        };
+
+        const response: Response = await api.name()
+          .includeRequestDetails(true)
+          .validate(query);
+        const result = response.getRequest();
+        expect(result.query).not.toBeUndefined();
+
+        const secondResponse: Response = await api.name()
+          .validate(query);
+        const secondResult = secondResponse.getRequest();
+        expect(secondResult.query).toBeUndefined();
+    });
 });

@@ -98,4 +98,29 @@ describe('Location Get', () => {
         expect(response.getStatus()).toBe(200);
         expect(result[0].data).toBeTruthy();
     });
+
+    test("settings should not persist between calls", async () => {
+        const query = {
+            country: 'CZ',
+            id: '22349995'
+        };
+
+        const options = {
+            idType: 'external',
+            dataScope: 'basic'
+        };
+
+        const response: Response = await api.location()
+          .includeRequestDetails(true)
+          .setOptions(options)
+          .get(query);
+        const result = response.getRequest();
+        expect(result.query).not.toBeUndefined();
+
+        const secondResponse: Response = await api.location()
+          .setOptions(options)
+          .get(query);
+        const secondResult = secondResponse.getRequest();
+        expect(secondResult.query).toBeUndefined();
+    });
 });
