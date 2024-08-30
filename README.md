@@ -117,4 +117,4 @@ Response class is returned with every request providing methods below:
 
 ## Testing
 
-The library includes unit tests to ensure its functionality and provide examples of how the library can be used. You can run the tests using Jest. Don't forget to set your API key for these tests, located in the \test\config.ts file.
+The library includes unit tests to ensure its functionality and provide examples of how the library can be used. You can run the tests using Jest. Don't forget to set your API key for these tests using `.env.local` file.
