@@ -74,7 +74,7 @@ It offers the following methods:
 | setAuth               | `API key`        | Sets API key, that will be used in requests  |
 | setApiVersion         | `version number` | Sets specific API version, that will be used |
 
-To access various resources from this class, simply provide the resource name, and you will be able to access the resource's methods, e.g., `api.email.search(query)`, `api.company.get(query)`, etc.
+To access various resources from this class, simply provide the resource name, and you will be able to access the resource's methods, e.g., `api.email().search(query)`, `api.company().get(query)`, etc.
 
 ## Resources
 
