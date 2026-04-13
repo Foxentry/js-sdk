@@ -3,7 +3,7 @@
  * https://jestjs.io/docs/configuration
  */
 
-import type { Config } from 'jest';
+import type { Config } from "jest";
 
 const config: Config = {
   // All imported modules in your tests should be mocked automatically
@@ -134,9 +134,7 @@ const config: Config = {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  setupFiles: [
-    "./test/config.ts"
-  ],
+  setupFiles: ["./test/config.ts"],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
   // setupFilesAfterEnv: [],
@@ -180,7 +178,7 @@ const config: Config = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    "\\.ts$": ['ts-jest', { useESM: true }]
+    "\\.ts$": ["ts-jest", { useESM: true }],
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
@@ -200,6 +198,8 @@ const config: Config = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
+
+  testTimeout: 15000,
 };
 
 export default config;

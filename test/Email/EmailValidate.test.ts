@@ -73,7 +73,7 @@ describe("Email Validate", () => {
     expect(result.isValid).toBe(false);
     expect(result.proposal).toBe("invalidWithSuggestion");
     expect(response.getSuggestions()).toBeTruthy();
-  }, 15000); // Set timeout to 15 seconds for this test
+  });
 
   /**
    * Invalid email with correction validation test
