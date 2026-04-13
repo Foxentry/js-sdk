@@ -3,147 +3,161 @@ import { ApiClient, Response } from "../../src/index";
 /**
  * Tests for Name Validate API endpoint
  */
-describe('Name Validate', () => {
-    let api: ApiClient;
+describe("Name Validate", () => {
+  let api: ApiClient;
 
-    beforeAll(() => {
-        const apiKey = process.env.API_KEY; // API key needs to be set in the test/config.ts file
-        api = new ApiClient(apiKey);
-    });
+  beforeAll(() => {
+    const apiKey = process.env.API_KEY; // API key needs to be set in the test/config.ts file
+    api = new ApiClient(apiKey);
+  });
 
-    test("valid name validation", async () => {
-        const query = {
-            name: "Pavel"
-        };
+  test("valid name validation", async () => {
+    const query = {
+      name: "Pavel",
+    };
 
-        const options = {
-            dataScope: "basic"
-        };
+    const options = {
+      dataScope: "basic",
+    };
 
-        const response: Response = await api.name().setOptions(options).validate(query);
-        const result = response.getResult();
+    const response: Response = await api
+      .name()
+      .setOptions(options)
+      .validate(query);
+    const result = response.getResult();
 
-        expect(response).toBeInstanceOf(Response);
-        expect(response.getStatus()).toBe(200);
-        expect(result.isValid).toBe(true);
-        expect(result.proposal).toBe("valid");
-        expect(result.data).toBeTruthy();
-    });
+    expect(response).toBeInstanceOf(Response);
+    expect(response.getStatus()).toBe(200);
+    expect(result.isValid).toBe(true);
+    expect(result.proposal).toBe("valid");
+    expect(result.data).toBeTruthy();
+  });
 
-    test("invalid name", async () => {
-        const query = {
-            name: "Paeeewas"
-        };
+  test("invalid name", async () => {
+    const query = {
+      name: "Paeeewas",
+    };
 
-        const options = {
-            dataScope: "basic",
-            validationDepth: "strict"
-        };
+    const options = {
+      dataScope: "basic",
+      validationDepth: "strict",
+    };
 
-        const response: Response = await api.name().setOptions(options).validate(query);
-        const result = response.getResult();
+    const response: Response = await api
+      .name()
+      .setOptions(options)
+      .validate(query);
+    const result = response.getResult();
 
-        expect(response).toBeInstanceOf(Response);
-        expect(response.getStatus()).toBe(200);
-        expect(result.isValid).toBe(false);
-        expect(result.proposal).toBe("invalid");
-        expect(result.errors).toBeTruthy();
-    });
+    expect(response).toBeInstanceOf(Response);
+    expect(response.getStatus()).toBe(200);
+    expect(result.isValid).toBe(false);
+    expect(result.proposal).toBe("invalid");
+    expect(result.errors).toBeTruthy();
+  });
 
-    test("invalid name with correction", async () => {
-        const query = {
-            name: "Palve"
-        };
+  test("invalid name with correction", async () => {
+    const query = {
+      name: "PaVelll",
+    };
 
-        const options = {
-            dataScope: "basic",
-            validationDepth: "strict"
-        };
+    const options = {
+      dataScope: "basic",
+      validationDepth: "strict",
+    };
 
-        const response: Response = await api.name().setOptions(options).validate(query);
-        const result = response.getResult();
+    const response: Response = await api
+      .name()
+      .setOptions(options)
+      .validate(query);
+    const result = response.getResult();
 
-        expect(response).toBeInstanceOf(Response);
-        expect(response.getStatus()).toBe(200);
-        expect(result.isValid).toBe(false);
-        expect(result.proposal).toBe("invalidWithCorrection");
-        expect(response.getResultCorrected()).toBeTruthy();
-    });
+    expect(response).toBeInstanceOf(Response);
+    expect(response.getStatus()).toBe(200);
+    expect(result.isValid).toBe(false);
+    expect(result.proposal).toBe("invalidWithCorrection");
+    expect(response.getResultCorrected()).toBeTruthy();
+  });
 
-    test("valid full name validation", async () => {
-        const query = {
-            nameSurname: "Pavel Novák"
-        };
+  test("valid full name validation", async () => {
+    const query = {
+      nameSurname: "Pavel Novák",
+    };
 
-        const options = {
-            dataScope: "full"
-        };
+    const options = {
+      dataScope: "full",
+    };
 
-        const response: Response = await api.name().setOptions(options).validate(query);
-        const result = response.getResult();
+    const response: Response = await api
+      .name()
+      .setOptions(options)
+      .validate(query);
+    const result = response.getResult();
 
-        expect(response).toBeInstanceOf(Response);
-        expect(response.getStatus()).toBe(200);
-        expect(result.isValid).toBe(true); // Adjust this expectation based on your API response
-        expect(result.proposal).toBe("valid");
-        expect(result.details).toBeTruthy();
-    });
+    expect(response).toBeInstanceOf(Response);
+    expect(response.getStatus()).toBe(200);
+    expect(result.isValid).toBe(true); // Adjust this expectation based on your API response
+    expect(result.proposal).toBe("valid");
+    expect(result.details).toBeTruthy();
+  });
 
-    test("name validation with custom ID", async () => {
-        const customRequestId = 'MyCustomID';
+  test("name validation with custom ID", async () => {
+    const customRequestId = "MyCustomID";
 
-        const query = {
-            name: "Pavel"
-        };
+    const query = {
+      name: "Pavel",
+    };
 
-        const response: Response = await api.name()
-            .setCustomId(customRequestId)
-            .validate(query);
+    const response: Response = await api
+      .name()
+      .setCustomId(customRequestId)
+      .validate(query);
 
-        const request = response.getRequest();
+    const request = response.getRequest();
 
-        expect(response).toBeInstanceOf(Response);
-        expect(response.getStatus()).toBe(200);
-        expect(request?.customId).toBeTruthy();
-    });
+    expect(response).toBeInstanceOf(Response);
+    expect(response.getStatus()).toBe(200);
+    expect(request?.customId).toBeTruthy();
+  });
 
-    test("name validation with client information", async () => {
-        const query = {
-            name: "Pavel"
-        };
+  test("name validation with client information", async () => {
+    const query = {
+      name: "Pavel",
+    };
 
-        const options = {
-            dataScope: "basic"
-        };
+    const options = {
+      dataScope: "basic",
+    };
 
-        const response: Response = await api.name()
-            .setOptions(options)
-            .setClientCountry("CZ")
-            .setClientIP("127.0.0.1")
-            .setClientLocation(50.073658, 14.418540)
-            .validate(query);
+    const response: Response = await api
+      .name()
+      .setOptions(options)
+      .setClientCountry("CZ")
+      .setClientIP("127.0.0.1")
+      .setClientLocation(50.073658, 14.41854)
+      .validate(query);
 
-        const result = response.getResult();
+    const result = response.getResult();
 
-        expect(response).toBeInstanceOf(Response);
-        expect(response.getStatus()).toBe(200);
-        expect(result.isValid).toBe(true);
-    });
+    expect(response).toBeInstanceOf(Response);
+    expect(response.getStatus()).toBe(200);
+    expect(result.isValid).toBe(true);
+  });
 
-    test("settings should not persist between calls", async () => {
-        const query = {
-            name: "Pavel"
-        };
+  test("settings should not persist between calls", async () => {
+    const query = {
+      name: "Pavel",
+    };
 
-        const response: Response = await api.name()
-          .includeRequestDetails(true)
-          .validate(query);
-        const result = response.getRequest();
-        expect(result.query).not.toBeUndefined();
+    const response: Response = await api
+      .name()
+      .includeRequestDetails(true)
+      .validate(query);
+    const result = response.getRequest();
+    expect(result.query).not.toBeUndefined();
 
-        const secondResponse: Response = await api.name()
-          .validate(query);
-        const secondResult = secondResponse.getRequest();
-        expect(secondResult.query).toBeUndefined();
-    });
+    const secondResponse: Response = await api.name().validate(query);
+    const secondResult = secondResponse.getRequest();
+    expect(secondResult.query).toBeUndefined();
+  });
 });
