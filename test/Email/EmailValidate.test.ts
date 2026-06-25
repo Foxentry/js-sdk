@@ -36,7 +36,7 @@ describe("Email Validate", () => {
    * Invalid email validation test
    */
   test("invalid email", async () => {
-    const emailToValidate = "invaliduser@foxentry.com";
+    const emailToValidate = "invaliduser@foxentryz.com";
     const options = { validationType: "extended" }; // Set validation type to extended
 
     const response: Response = await api
