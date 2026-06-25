@@ -72,8 +72,10 @@ describe('Company Validate', () => {
     });
 
     test("invalid company data with suggestion", async () => {
+        // A bare, ambiguous company name matches many records, so the API
+        // returns a list of suggestions rather than a single correction.
         const query = {
-            registrationNumber: '0499747'
+            name: 'Seznam'
         };
 
         const options = {
@@ -88,6 +90,7 @@ describe('Company Validate', () => {
         expect(result.isValid).toBe(false);
         expect(result.proposal).toBe('invalidWithSuggestion');
         expect(response.getSuggestions()).toBeTruthy();
+        expect(response.getSuggestions().length).toBeGreaterThan(0);
     });
 
     test("company data validation with custom ID", async () => {

@@ -13,7 +13,7 @@ describe('Phone Validate', () => {
 
     test("valid phone number validation", async () => {
         const query = {
-            numberWithPrefix: "+420607123456"
+            numberFull: "+420607123456"
         };
 
         const options = {
@@ -32,7 +32,7 @@ describe('Phone Validate', () => {
 
     test("invalid phone number", async () => {
         const query = {
-            numberWithPrefix: "+42060712345"
+            numberFull: "+42060712345"
         };
 
         const options = {
@@ -49,30 +49,11 @@ describe('Phone Validate', () => {
         expect(result.errors).toBeTruthy();
     });
 
-    test("valid phone number with suggestion", async () => {
+    test("invalid phone number with suggestion", async () => {
+        // A bare national number with no prefix cannot be resolved to a single
+        // country, so the API returns prefix suggestions.
         const query = {
-            prefix: "+48",
-            number: "728984101"
-        };
-
-        const options = {
-            validationType: "extended"
-        };
-
-        const response: Response = await api.phone().setOptions(options).validate(query);
-        const result = response.getResult();
-
-        expect(response).toBeInstanceOf(Response);
-        expect(response.getStatus()).toBe(200);
-        expect(result.isValid).toBe(true);
-        expect(result.proposal).toBe("validWithSuggestion");
-        expect(response.getSuggestions()).toBeTruthy();
-    });
-
-    test("invalid phone number with correction", async () => {
-        const query = {
-            prefix: "+421",
-            number: "607123456"
+            numberFull: "607123456"
         };
 
         const options = {
@@ -85,15 +66,79 @@ describe('Phone Validate', () => {
         expect(response).toBeInstanceOf(Response);
         expect(response.getStatus()).toBe(200);
         expect(result.isValid).toBe(false);
+        expect(result.proposal).toBe("invalidWithSuggestion");
+        expect(response.getSuggestions()).toBeTruthy();
+        expect(response.getSuggestions().length).toBeGreaterThan(0);
+    });
+
+    test("invalid phone number with correction", async () => {
+        // The same prefixless number is corrected to a single result once a
+        // preferred prefix is supplied (2.1 `preferredPrefixes` option).
+        const query = {
+            numberFull: "607123456"
+        };
+
+        const options = {
+            validationType: "extended",
+            preferredPrefixes: ["+420"]
+        };
+
+        const response: Response = await api.phone().setOptions(options).validate(query);
+        const result = response.getResult();
+
+        expect(response).toBeInstanceOf(Response);
+        expect(response.getStatus()).toBe(200);
+        expect(result.isValid).toBe(false);
         expect(result.proposal).toBe("invalidWithCorrection");
         expect(response.getResultCorrected()).toBeTruthy();
+    });
+
+    test("result exposes the 2.1 format object", async () => {
+        const query = {
+            numberFull: "+420607123456"
+        };
+
+        const options = {
+            validationType: "extended",
+            numberFormat: "e164"
+        };
+
+        const response: Response = await api.phone().setOptions(options).validate(query);
+        const result = response.getResult();
+
+        expect(response.getStatus()).toBe(200);
+        expect(result.isValid).toBe(true);
+        // 2.1 renamed every key of result.data.format.
+        expect(result.data.format).toMatchObject({
+            raw: expect.any(String),
+            national: expect.any(String),
+            e164: expect.any(String),
+            e123: expect.any(String),
+        });
+        expect(result.data.numberFull).toBe("+420607123456");
+    });
+
+    test("country is nullable when it cannot be resolved", async () => {
+        const query = {
+            numberFull: "+42060712345" // too short to resolve a country
+        };
+
+        const response: Response = await api.phone()
+            .setOptions({ validationType: "extended" })
+            .validate(query);
+        const result = response.getResult();
+
+        expect(response.getStatus()).toBe(200);
+        expect(result.isValid).toBe(false);
+        expect(result.data.country.code).toBeNull();
+        expect(result.data.country.prefix).toBeNull();
     });
 
     test("phone number validation with custom ID", async () => {
         const customRequestId = 'orderPhoneValidation';
 
         const query = {
-            numberWithPrefix: "+420607123456"
+            numberFull: "+420607123456"
         };
 
         const response: Response = await api.phone()
@@ -109,7 +154,7 @@ describe('Phone Validate', () => {
 
     test("phone number validation with client information", async () => {
         const query = {
-            numberWithPrefix: "+420607123456"
+            numberFull: "+420607123456"
         };
 
         const response: Response = await api.phone()
@@ -127,7 +172,7 @@ describe('Phone Validate', () => {
 
     test("settings should not persist between calls", async () => {
         const query = {
-            numberWithPrefix: "+420607123456"
+            numberFull: "+420607123456"
         };
 
         const response: Response = await api.phone()

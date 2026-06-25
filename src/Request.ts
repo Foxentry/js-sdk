@@ -12,7 +12,7 @@ export default class Request {
     "Foxentry-Include-Request-Details": false,
     "Content-Type": "application/json",
     Accept: "application/json",
-    "User-Agent": "FoxentrySdk (JS/1.2.1; ApiReference/2.0)",
+    "User-Agent": "FoxentrySdk (JS/2.0.0; ApiReference/2.1)",
   };
   private body: object | null = null;
   private customId: string | null = null;

@@ -17,7 +17,7 @@ export default class ApiClient {
   /**
    * Api version
    */
-  private apiVersion: string = "2.0";
+  private apiVersion: string = "2.1";
 
   /**
    * ApiClient constructor.
